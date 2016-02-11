@@ -29,6 +29,11 @@ class VisitorFilter
 	 * @var bool разрешено для всех посетителей. Если true, то остальные правила игнорируются.
 	 */
 	public $allowToAll = false;
+
+	/**
+	 * @var bool запрещено для всех посетителей. Если true, то остальные правила игнорируются.
+	 */
+	public $disallowToAll = false;
 	
 	/**
 	 * @var array список запрещённых стран (iso-код, например "US", "RU" и т.д.)
@@ -85,10 +90,12 @@ class VisitorFilter
 	 */
 	public function isAllow()
 	{
-		$isAllow = true;
-
 		if ($this->allowToAll) {
-			return $isAllow;
+			return true;
+		}
+
+		if ($this->disallowToAll) {
+			return false;
 		}
 
 		$visitorInfo     = $this->visitorInfo;
@@ -96,6 +103,7 @@ class VisitorFilter
 		$visitorIp       = $visitorInfo->getIp();
 		$visitorLanguage = $visitorInfo->getLanguage();
 		$visitorReferer  = $visitorInfo->getHttpReferer();
+		$isAllow         = true;
 		
 		if (!is_null($visitorCountry)) {
 			foreach ($this->disallowedCountries as $disallowedCountry) {
