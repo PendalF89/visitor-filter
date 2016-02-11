@@ -1,0 +1,16 @@
+{
+  "name": "pendalf89/visitor-filter",
+  "authors": [
+    {
+      "name": "PendalF",
+      "email": "pendalf@mail.ru"
+    }
+  ],
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "autoload": {
+    "psr-4": {
+      "pendalf89\\visitor_filter\\": ""
+    }
+  }
+}
