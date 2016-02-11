@@ -18,8 +18,8 @@ namespace pendalf89\visitor_filter;
  *	    'disallowedIpAddresses' => [],
  *	    'disallowIfVisitorWasHere' => false,
  *	];
- *	$visitorInfo = new \pendalf89\visitor_filter\VisitorFilter($config);
- *	var_dump($visitorInfo->isAllow());
+ *	$visitorFilter = new \pendalf89\visitor_filter\VisitorFilter($config);
+ *	var_dump($visitorFilter->isAllow());
  *
  * @package pendalf89\visitor_filter
  */
