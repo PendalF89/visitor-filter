@@ -144,6 +144,10 @@ class VisitorInfo
 			$ip = getenv('REMOTE_ADDR');
 		}
 
+		if (substr_count($ip, ',')) {
+			$ip = trim(explode(',', $ip)[0]);
+		}
+
 		$this->ip = $ip;
 	}
 
