@@ -148,7 +148,7 @@ class VisitorInfo
 			$ip = trim(explode(',', $ip)[0]);
 		}
 
-		$this->ip = $ip;
+		$this->ip = filter_var($ip, FILTER_VALIDATE_IP) ? $ip : null;
 	}
 
 	/**
@@ -156,13 +156,15 @@ class VisitorInfo
 	 */
 	protected function detectCountry()
 	{
-		$reader = new Reader($this->geoIpDatabase);
+		$this->countryIsoCode = null;
 
-		try {
-			$record = $reader->country($this->getIp());
-			$this->countryIsoCode = $record->country->isoCode;
-		} catch (AddressNotFoundException $e) {
-			$this->countryIsoCode = null;
+		if (!is_null($this->getIp())) {
+			try {
+				$record = (new Reader($this->geoIpDatabase))->country($this->getIp());
+				$this->countryIsoCode = $record->country->isoCode;
+			} catch (AddressNotFoundException $e) {
+				$this->countryIsoCode = null;
+			}
 		}
 	}
 
